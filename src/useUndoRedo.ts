@@ -15,7 +15,10 @@ interface InternalActionType {
   type: ACTION_TYPES;
 }
 
-export const useUndoRedo = <T>(reducer: Function, initialState: T) => {
+export const useUndoRedo = <T>(
+  reducer: (stateArg: T, actionArg: { type: string }) => T,
+  initialState: T
+) => {
   const _internalState: InternalState<T> = {
     past: [],
     present: initialState,
