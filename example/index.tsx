@@ -24,7 +24,7 @@ const delayInc = dispatch => {
 };
 
 export default function App() {
-  const [count, dispatch] = useThunk(countReducer, 0);
+  const [count, dispatch] = useThunk<number>(countReducer, 0);
   return (
     <div className="App">
       {/** @ts-ignore */}
