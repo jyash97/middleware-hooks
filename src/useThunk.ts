@@ -5,6 +5,7 @@ export const useThunk = <T>(
     stateArg: T,
     actionArg: {
       type: string;
+      [key: string]: unknown;
     }
   ) => T,
   initialState: T

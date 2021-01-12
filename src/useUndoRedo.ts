@@ -13,10 +13,14 @@ interface InternalState<T> {
 
 interface InternalActionType {
   type: ACTION_TYPES;
+  [key: string]: unknown;
 }
 
 export const useUndoRedo = <T>(
-  reducer: (stateArg: T, actionArg: { type: string }) => T,
+  reducer: (
+    stateArg: T,
+    actionArg: { type: string; [key: string]: unknown }
+  ) => T,
   initialState: T
 ) => {
   const _internalState: InternalState<T> = {
