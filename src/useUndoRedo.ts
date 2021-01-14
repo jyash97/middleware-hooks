@@ -1,18 +1,35 @@
 import { useReducer } from 'react';
 
-export const ACTION_TYPES = {
-  REDO: 'REDO',
-  UNDO: 'UNDO',
-};
+export enum ACTION_TYPES {
+  REDO = 'REDO',
+  UNDO = 'UNDO',
+}
 
-export const useUndoRedo = (reducer: Function, initialState: any) => {
-  const _internalState = {
+interface InternalState<T> {
+  past: T[];
+  present: T;
+  future: T[];
+}
+
+interface InternalActionType {
+  type: ACTION_TYPES;
+  [key: string]: unknown;
+}
+
+export const useUndoRedo = <T>(
+  reducer: (
+    stateArg: T,
+    actionArg: { type: string; [key: string]: unknown }
+  ) => T,
+  initialState: T
+) => {
+  const _internalState: InternalState<T> = {
     past: [],
     present: initialState,
     future: [],
   };
 
-  const _reducer = (state: any, action: any) => {
+  const _reducer = (state: InternalState<T>, action: InternalActionType) => {
     switch (action.type) {
       case ACTION_TYPES.UNDO: {
         const [newPresent, ...past] = state.past;
