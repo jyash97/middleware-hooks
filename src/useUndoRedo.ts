@@ -70,3 +70,11 @@ export const useUndoRedo = <T>(
     dispatch,
   };
 };
+
+export const undoAction = () => ({
+  type: ACTION_TYPES.UNDO,
+});
+
+export const redoAction = () => ({
+  type: ACTION_TYPES.REDO,
+});

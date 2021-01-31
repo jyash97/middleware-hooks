@@ -1,32 +1,27 @@
 import 'react-app-polyfill/ie11';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { useLogger } from '../.';
+import { usePersist, resetStorage } from '../.';
 
-const countReducer = (state = 0, action) => {
-  if (action.type === 'INC') {
-    return state + 1;
-  }
-
-  if (action.type === 'DEC') {
-    return state - 1;
+const nameReducer = (state = 0, action) => {
+  if (action.type === 'CHANGE') {
+    return { name: action.payload };
   }
 
   return state;
 };
 
 export default function App() {
-  const [count, dispatch] = useLogger(countReducer, 0);
+  const [store, dispatch] = usePersist(nameReducer, { name: '' });
   return (
     <div className="App">
-      {/** @ts-ignore */}
-      <h1>{count}</h1>
-      {/** @ts-ignore */}
+      <h1>{store.name}</h1>
+      <input
+        value={store.name}
+        onChange={e => dispatch({ type: 'CHANGE', payload: e.target.value })}
+      />
 
-      <button onClick={() => dispatch({ type: 'INC' })}>+</button>
-      {/** @ts-ignore */}
-
-      <button onClick={() => dispatch({ type: 'DEC' })}>-</button>
+      <button onClick={() => dispatch(resetStorage())}>Reset</button>
     </div>
   );
 }
