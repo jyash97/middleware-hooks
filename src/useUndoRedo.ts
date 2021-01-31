@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useCallback, useReducer } from 'react';
 
 export enum ACTION_TYPES {
   REDO = 'REDO',
@@ -29,34 +29,37 @@ export const useUndoRedo = <T>(
     future: [],
   };
 
-  const _reducer = (state: InternalState<T>, action: InternalActionType) => {
-    switch (action.type) {
-      case ACTION_TYPES.UNDO: {
-        const [newPresent, ...past] = state.past;
-        return {
-          past,
-          present: newPresent,
-          future: [state.present, ...state.future],
-        };
+  const _reducer = useCallback(
+    (state: InternalState<T>, action: InternalActionType) => {
+      switch (action.type) {
+        case ACTION_TYPES.UNDO: {
+          const [newPresent, ...past] = state.past;
+          return {
+            past,
+            present: newPresent,
+            future: [state.present, ...state.future],
+          };
+        }
+        case ACTION_TYPES.REDO: {
+          const [newPresent, ...future] = state.future;
+          return {
+            past: [state.present, ...state.past],
+            present: newPresent,
+            future,
+          };
+        }
+        default: {
+          const presentState = reducer(state.present, action);
+          return {
+            ...state,
+            past: [state.present, ...state.past],
+            present: presentState,
+          };
+        }
       }
-      case ACTION_TYPES.REDO: {
-        const [newPresent, ...future] = state.future;
-        return {
-          past: [state.present, ...state.past],
-          present: newPresent,
-          future,
-        };
-      }
-      default: {
-        const presentState = reducer(state.present, action);
-        return {
-          ...state,
-          past: [state.present, ...state.past],
-          present: presentState,
-        };
-      }
-    }
-  };
+    },
+    []
+  );
 
   const [store, dispatch] = useReducer(_reducer, _internalState);
 

@@ -1,7 +1,7 @@
 import 'react-app-polyfill/ie11';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { useThunk } from '../.';
+import { useLogger } from '../.';
 
 const countReducer = (state = 0, action) => {
   if (action.type === 'INC') {
@@ -15,16 +15,8 @@ const countReducer = (state = 0, action) => {
   return state;
 };
 
-const delayInc = dispatch => {
-  setTimeout(() => {
-    dispatch({
-      type: 'INC',
-    });
-  }, 1000);
-};
-
 export default function App() {
-  const [count, dispatch] = useThunk<number>(countReducer, 0);
+  const [count, dispatch] = useLogger(countReducer, 0);
   return (
     <div className="App">
       {/** @ts-ignore */}
@@ -35,9 +27,6 @@ export default function App() {
       {/** @ts-ignore */}
 
       <button onClick={() => dispatch({ type: 'DEC' })}>-</button>
-      {/** @ts-ignore */}
-
-      <button onClick={() => dispatch(delayInc)}>Delayed +</button>
     </div>
   );
 }

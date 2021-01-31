@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useCallback, useReducer } from 'react';
 
 export const useThunk = <T>(
   reducer: (
@@ -12,17 +12,20 @@ export const useThunk = <T>(
 ) => {
   const [store, dispatch] = useReducer(reducer, initialState);
 
-  const enhancedDispatch = (
-    action:
-      | { type: string }
-      | ((dispatchArg: React.Dispatch<{ type: string }>) => void)
-  ) => {
-    if (typeof action === 'function') {
-      action(dispatch);
-    } else {
-      dispatch(action);
-    }
-  };
+  const enhancedDispatch = useCallback(
+    (
+      action:
+        | { type: string }
+        | ((dispatchArg: React.Dispatch<{ type: string }>) => void)
+    ) => {
+      if (typeof action === 'function') {
+        action(dispatch);
+      } else {
+        dispatch(action);
+      }
+    },
+    []
+  );
 
   return [store, enhancedDispatch];
 };
