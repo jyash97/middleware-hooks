@@ -27,7 +27,7 @@ module.exports = {
         start_url: `/`,
         background_color: `#ffffff`,
         display: `standalone`,
-        icon: `static/favicon.png`,
+        icon: `static/icon.png`,
       },
     },
     `gatsby-plugin-sitemap`,
