@@ -1,13 +1,11 @@
 module.exports = {
   siteMetadata: {
-    siteTitle: `Rocket Docs`,
-    defaultTitle: `Rocket Docs`,
-    siteTitleShort: `Rocket Docs`,
-    siteDescription: `Out of the box Gatsby Theme for creating documentation websites easily and quickly`,
-    siteUrl: `https://rocketdocs.netlify.com`,
-    siteAuthor: `@rocketseat`,
-    siteImage: `/banner.png`,
-    siteLanguage: `en`,
+    siteTitle: `Middleware Hooks`,
+    defaultTitle: `Middleware Hooks`,
+    siteTitleShort: `Middleware Hooks`,
+    siteDescription: `A collection of React hooks to upgrade the existing 'useReducer' hooks`,
+    siteUrl: `https://middleware-hooks.netlify.app`,
+    siteAuthor: `@jyash97`,
     themeColor: `#8257E6`,
     basePath: `/`,
   },
@@ -17,15 +15,15 @@ module.exports = {
       options: {
         configPath: `src/config`,
         docsPath: `src/docs`,
-        githubUrl: `https://github.com/rocketseat/gatsby-themes`,
-        baseDir: `examples/gatsby-theme-docs`,
+        githubUrl: `https://github.com/jyash97/middleware-hooks`,
+        baseDir: `site/`,
       },
     },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Rocketseat Gatsby Themes`,
-        short_name: `RS Gatsby Themes`,
+        name: `Middleware Hooks`,
+        short_name: `Middleware Hooks`,
         start_url: `/`,
         background_color: `#ffffff`,
         display: `standalone`,
@@ -43,7 +41,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-canonical-urls`,
       options: {
-        siteUrl: `https://rocketdocs.netlify.com`,
+        siteUrl: `https://middleware-hooks.netlify.app`,
       },
     },
     `gatsby-plugin-offline`,

@@ -11,15 +11,10 @@ interface InternalState<T> {
   future: T[];
 }
 
-interface InternalActionType {
-  type: ACTION_TYPES;
-  [key: string]: unknown;
-}
-
 export const useUndoRedo = <T>(
   reducer: (
     stateArg: T,
-    actionArg: { type: string; [key: string]: unknown }
+    actionArg: { type: string;[key: string]: unknown }
   ) => T,
   initialState: T
 ) => {
@@ -30,7 +25,7 @@ export const useUndoRedo = <T>(
   };
 
   const _reducer = useCallback(
-    (state: InternalState<T>, action: InternalActionType) => {
+    (state: InternalState<T>, action: any) => {
       switch (action.type) {
         case ACTION_TYPES.UNDO: {
           const [newPresent, ...past] = state.past;
@@ -64,7 +59,7 @@ export const useUndoRedo = <T>(
   const [store, dispatch] = useReducer(_reducer, _internalState);
 
   return {
-    data: store.present,
+    store: store.present,
     hasFuture: store.future.length !== 0,
     hasPast: store.past.length !== 0,
     dispatch,

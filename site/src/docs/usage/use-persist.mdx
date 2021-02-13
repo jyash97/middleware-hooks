@@ -1,0 +1,35 @@
+---
+title: usePersist
+---
+
+`usePersist` lets you save the state of your reducer.
+Inspired from [redux-persist](https://github.com/rt2zz/redux-persist).
+
+`Note:` This is experimental. It relies on the function name of reducer
+in order to cache the value.
+
+## Usage
+
+```jsx
+import { usePersist, resetStorage } from 'middleware-hooks';
+
+const App = () => {
+  const [store, dispatch] = usePersist(reducer, initialState);
+  return (
+    <>
+      <h1>Hello World!</h1>
+      <button onClick={() => dispatch(resetStorage())}>Reset Storage</button>
+    </>
+  );
+};
+```
+
+## Example
+
+<iframe
+  width="100%"
+  height="500"
+  style="border:0; border-radius: 4px; overflow:hidden;"
+  sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
+  src="https://codesandbox.io/embed/use-persist-9lvto?fontsize=14&hidenavigation=1&module=App.js&theme=dark"
+/>

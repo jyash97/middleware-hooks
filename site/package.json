@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-rocket-docs",
+  "name": "middleware-hooks-site",
   "private": true,
   "version": "1.0.0",
-  "description": "Out of the box Gatsby Starter for creating documentation websites easily and quickly. With support for MDX, code highlight, Analytics, SEO and more",
-  "author": "João Pedro Schmitz <oi@joaopedro.cc> (@jpedroschmitz)",
+  "description": "Site for middleware hooks",
+  "author": "jyash97",
   "license": "MIT",
   "starter-name": "gatsby-starter-rocket-docs",
   "dependencies": {

@@ -13,24 +13,23 @@ export const useLogger = <T>(
   const _reducer = useCallback((state: any, action: any) => {
     const newState = reducer(state, action);
 
-    if (process.env.NODE_ENV !== 'production') {
-      console.groupCollapsed(
-        '%caction' +
-          `%c ${action.type}` +
-          `%c @ ${new Date().toLocaleString()}`,
-        'font-weight: normal; color: #8c8c8c;',
-        'font-weight: bold, color: #262626;',
-        'font-weight: normal; color: #8c8c8c;'
-      );
-      console.log('%cprev state ', 'font-weight: bold; color: #8c8c8c;', state);
-      console.log('%caction ', 'font-weight: bold; color: #1890ff;', action);
-      console.log(
-        '%cnext state ',
-        'font-weight: bold; color: #73d13d;',
-        newState
-      );
-      console.groupEnd();
-    }
+    console.groupCollapsed(
+      '%caction' +
+        `%c ${action.type}` +
+        `%c @ ${new Date().toLocaleString()}`,
+      'font-weight: normal; color: #8c8c8c;',
+      'font-weight: bold, color: #262626;',
+      'font-weight: normal; color: #8c8c8c;'
+    );
+    console.log('%cprev state ', 'font-weight: bold; color: #8c8c8c;', state);
+    console.log('%caction ', 'font-weight: bold; color: #1890ff;', action);
+    console.log(
+      '%cnext state ',
+      'font-weight: bold; color: #73d13d;',
+      newState
+    );
+    console.groupEnd();
+
 
     return newState;
   }, []);

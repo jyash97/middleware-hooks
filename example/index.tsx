@@ -1,27 +1,35 @@
 import 'react-app-polyfill/ie11';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { usePersist, resetStorage } from '../.';
+import { redoAction, undoAction, useUndoRedo } from '../.';
 
-const nameReducer = (state = 0, action) => {
-  if (action.type === 'CHANGE') {
-    return { name: action.payload };
+const countReducer = (state, action) => {
+  if (action.type === 'INC') {
+    return state + 1;
   }
 
   return state;
 };
 
+const increment = () => ({
+  type: 'INC',
+});
+
 export default function App() {
-  const [store, dispatch] = usePersist(nameReducer, { name: '' });
+  const { store: count, dispatch, hasPast, hasFuture } = useUndoRedo(
+    countReducer,
+    0
+  );
   return (
     <div className="App">
-      <h1>{store.name}</h1>
-      <input
-        value={store.name}
-        onChange={e => dispatch({ type: 'CHANGE', payload: e.target.value })}
-      />
-
-      <button onClick={() => dispatch(resetStorage())}>Reset</button>
+      <h1>{count}</h1>
+      <button onClick={() => dispatch(increment())}>Increment</button>
+      <button disabled={!hasPast} onClick={() => dispatch(undoAction())}>
+        UNDO
+      </button>
+      <button disabled={!hasFuture} onClick={() => dispatch(redoAction())}>
+        REDO
+      </button>
     </div>
   );
 }

@@ -1,0 +1,45 @@
+---
+title: useUndoRedo
+---
+
+`useUndoRedo` adds the ability to traverse to past or future states.
+Undo and redo logic is handled by the hook itself. Dispatch the respective action
+in order to traverse the state.
+
+`Note:` This reducer does not return an array of values. But instead return objects.
+
+## Usage
+
+```jsx
+import { useUndoRedo, undoAction, redoAction } from 'middleware-hooks';
+
+/**
+ * store: Working state of the reducer.
+ * hasFuture: If any future state exists.
+ * hasPast: If any past state exists.
+ * dispatch: Dispatch function.
+ */
+const App = () => {
+  const { store, hasFuture, hasPast, dispatch } = useUndoRedo(
+    reducer,
+    initialState
+  );
+  return (
+    <>
+      <h1>Hello World!</h1>
+      <button>Undo</button>
+      <button>Redo</button>
+    </>
+  );
+};
+```
+
+## Example
+
+<iframe
+  width="100%"
+  height="500"
+  style="border:0; border-radius: 4px; overflow:hidden;"
+  sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
+  src="https://codesandbox.io/embed/use-undo-redo-yrts1?fontsize=14&hidenavigation=1&module=App.js&theme=dark"
+/>
